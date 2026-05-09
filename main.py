@@ -178,7 +178,27 @@ def admin_bookings():
     return jsonify([dict(r) for r in rows])
  
  
+# ── Admin: Delete single booking ─────────────────────────────────────────────
+@app.route("/admin/delete/<int:booking_id>", methods=["POST"])
+@require_auth
+def admin_delete_booking(booking_id):
+    with __import__('database').get_db() as conn:
+        conn.execute("DELETE FROM bookings WHERE id = ?", (booking_id,))
+    return jsonify(success=True)
 
+
+# ── Admin: Delete all bookings ────────────────────────────────────────────────
+@app.route("/admin/delete-all", methods=["POST"])
+@require_auth
+def admin_delete_all():
+    with __import__('database').get_db() as conn:
+        conn.execute("DELETE FROM bookings")
+    return jsonify(success=True)
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
 # =============================================================================
 #  Admin dashboard  GET /admin
 #  Protected by ADMIN_PASSWORD in .env
@@ -210,6 +230,3 @@ def admin_dashboard():
         stats=get_stats(),
         bookings=[dict(r) for r in get_all_bookings()]
     )
-
-if __name__ == "__main__":
-    app.run(debug=True)

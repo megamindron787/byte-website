@@ -529,3 +529,44 @@ tr.pending-row .badge.unpaid {
     text-transform: uppercase;
     color: var(--amber);
 }
+
+/* Delete buttons */
+.delete-btn {
+    font-family: var(--fm);
+    font-size: .65rem;
+    letter-spacing: .06em;
+    padding: .25rem .6rem;
+    border-radius: 3px;
+    cursor: pointer;
+    background: rgba(181, 52, 26, .08);
+    color: var(--accent);
+    border: 1.5px solid rgba(181, 52, 26, .25);
+    transition: background .15s, transform .1s;
+}
+
+.delete-btn:hover {
+    background: rgba(181, 52, 26, .18);
+    transform: scale(1.05);
+}
+
+.delete-all-btn {
+    font-family: var(--fm);
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .4rem .9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(181, 52, 26, .1);
+    color: var(--accent);
+    border: 2px solid rgba(181, 52, 26, .3);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, .1);
+    transition: transform .1s, box-shadow .1s, background .15s;
+}
+
+.delete-all-btn:hover {
+    background: var(--accent);
+    color: #FAF7F0;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, .15);
+}
