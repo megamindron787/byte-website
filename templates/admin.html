@@ -155,7 +155,7 @@
     <script>
         async function deleteRow(id, btn) {
             if (!confirm('Delete this booking?')) return;
-            const res = await fetch('/admin/delete/' + id, { method: 'POST' });
+            const res = await fetch('/admin/delete/' + id, { method: 'POST', credentials: 'include' });
             if ((await res.json()).success) {
                 btn.closest('tr').remove();
             }
@@ -163,7 +163,7 @@
 
         async function deleteAll() {
             if (!confirm('Delete ALL bookings? This cannot be undone.')) return;
-            const res = await fetch('/admin/delete-all', { method: 'POST' });
+            const res = await fetch('/admin/delete-all', { method: 'POST', credentials: 'include' });
             if ((await res.json()).success) {
                 document.getElementById('table-body').innerHTML =
                     '<tr><td colspan="13" class="no-results">No bookings yet</td></tr>';
