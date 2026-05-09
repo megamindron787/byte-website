@@ -28,7 +28,7 @@ def _make_qr_png(data: str) -> bytes:
     qr.make(fit=True)
     img = qr.make_image(fill_color="#1A1208", back_color="#FAF7F0")
     buf = io.BytesIO()
-    img.save(buf, format="PNG")
+    img.save(buf, kind="PNG")
     return buf.getvalue()
 
 
