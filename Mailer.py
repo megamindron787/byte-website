@@ -1,12 +1,10 @@
 """
-Mailer.py — Send HTML confirmation email with embedded ticket QR code
+Mailer.py — Send HTML confirmation email via Resend API
+Works on all cloud platforms (no SMTP port blocking issues)
 """
 
-import smtplib, os, io, qrcode
-from email.mime.multipart import MIMEMultipart
-from email.mime.text      import MIMEText
-from email.mime.image     import MIMEImage
-from dotenv               import load_dotenv
+import os, io, base64, qrcode, resend
+from dotenv import load_dotenv
 
 FROM_NAME = "DevSphere 2025"
 
@@ -56,19 +54,15 @@ def _day_badges_html(days_str: str, ticket_type: str) -> str:
 
 
 def send_confirmation(booking: dict):
-    # ── Load .env fresh every time so credentials are always current ──
     load_dotenv(override=True)
-    SMTP_HOST = os.getenv("SMTP_HOST", "smtp.gmail.com")
-    SMTP_PORT = int(os.getenv("SMTP_PORT", "587"))
-    SMTP_USER = os.getenv("SMTP_USER", "")
-    SMTP_PASS = os.getenv("SMTP_PASS", "")
-    REPLY_TO  = os.getenv("REPLY_TO", SMTP_USER)
 
-    # ── Debug: print what we loaded so you can verify in terminal ─────
-    print(f"[MAIL] SMTP_USER={SMTP_USER!r}  SMTP_PASS={'*'*len(SMTP_PASS) if SMTP_PASS else '(empty)'}")
+    resend.api_key = os.getenv("RESEND_API_KEY", "")
+    FROM_EMAIL     = os.getenv("FROM_EMAIL", "onboarding@resend.dev")
 
-    if not SMTP_USER or not SMTP_PASS:
-        raise ValueError("SMTP_USER or SMTP_PASS is empty — check your .env file")
+    print(f"[MAIL] RESEND_API_KEY={'*'*8 if resend.api_key else '(empty)'}")
+
+    if not resend.api_key:
+        raise ValueError("RESEND_API_KEY is empty — check your .env / Render env vars")
 
     name        = booking["name"]
     email       = booking["email"]
@@ -81,7 +75,11 @@ def send_confirmation(booking: dict):
     token       = booking["ticket_token"]
     payment_id  = booking.get("razorpay_payment_id", "—")
 
+    # Generate QR and encode as base64 for embedding in HTML
     qr_png     = _make_qr_png(token)
+    qr_b64     = base64.b64encode(qr_png).decode()
+    qr_src     = f"data:image/png;base64,{qr_b64}"
+
     day_badges = _day_badges_html(days, ticket_type)
     pass_label = "All-Week Pass" if ticket_type == "week" else "Day Pass"
     amount_fmt = f"₹{amount:,}"
@@ -107,17 +105,20 @@ def send_confirmation(booking: dict):
         <p style="margin:0 0 6px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B5341A;">▸ Hey {name},</p>
         <h2 style="margin:0 0 16px;font-family:Georgia,serif;font-style:italic;font-size:26px;color:#1A1208;">Your ticket is confirmed!</h2>
         <p style="margin:0 0 24px;font-size:15px;color:#7A6A50;line-height:1.65;">We can't wait to see you at DevSphere 2025. Your unique e-ticket QR code is below — please present it at the entrance.</p>
+
         <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td align="center" style="background:#F5F0E8;border:2px dashed rgba(80,55,30,.30);border-radius:8px;padding:24px;">
-            <img src="cid:ticket_qr" width="180" height="180" alt="Your Ticket QR" style="display:block;border-radius:6px;" />
+            <img src="{qr_src}" width="180" height="180" alt="Your Ticket QR" style="display:block;border-radius:6px;" />
             <p style="margin:12px 0 4px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7A6A50;">Ticket Token</p>
             <p style="margin:0;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:#1A1208;letter-spacing:.08em;">{token}</p>
           </td>
         </tr>
         </table>
+
         <p style="margin:24px 0 8px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B5341A;">▸ Your Days</p>
         <div style="margin-bottom:24px;">{day_badges}</div>
+
         <p style="margin:0 0 8px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#B5341A;">▸ Booking Details</p>
         <table width="100%" cellpadding="0" cellspacing="0" style="border:1.5px solid rgba(80,55,30,.20);border-radius:6px;overflow:hidden;">
           {''.join([
@@ -129,6 +130,7 @@ def send_confirmation(booking: dict):
             ]
           ])}
         </table>
+
         <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:24px;">
         <tr>
           <td style="background:rgba(26,92,58,.08);border:1.5px solid rgba(26,92,58,.25);border-radius:6px;padding:14px 18px;">
@@ -156,23 +158,12 @@ def send_confirmation(booking: dict):
 </html>
 """
 
-    msg            = MIMEMultipart("related")
-    msg["Subject"] = f"🎟 Your DevSphere 2025 Ticket — {token}"
-    msg["From"]    = f"{FROM_NAME} <{SMTP_USER}>"
-    msg["To"]      = email
-    msg["Reply-To"]= REPLY_TO
+    params = {
+        "from": f"{FROM_NAME} <{FROM_EMAIL}>",
+        "to":   [email],
+        "subject": f"🎟 Your DevSphere 2025 Ticket — {token}",
+        "html": html,
+    }
 
-    msg.attach(MIMEText(html, "html", "utf-8"))
-
-    qr_part = MIMEImage(qr_png, _subtype="png")
-    qr_part["Content-ID"]          = "<ticket_qr>"
-    qr_part["Content-Disposition"] = "inline; filename=ticket_qr.png"
-    msg.attach(qr_part)
-
-    with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.login(SMTP_USER, SMTP_PASS)
-        smtp.sendmail(SMTP_USER, email, msg.as_bytes())
-
-    print(f"[MAIL] Confirmation sent → {email}  token={token}")
+    response = resend.Emails.send(params)
+    print(f"[MAIL] Confirmation sent → {email}  token={token}  id={response.get('id')}")

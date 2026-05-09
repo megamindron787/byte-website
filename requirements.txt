@@ -3,3 +3,4 @@ razorpay
 python-dotenv
 qrcode[pil]
 Pillow
+resend
