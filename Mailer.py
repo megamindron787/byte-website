@@ -28,7 +28,7 @@ def _make_qr_png(data: str) -> bytes:
     qr.make(fit=True)
     img = qr.make_image(fill_color="#1A1208", back_color="#FAF7F0")
     buf = io.BytesIO()
-    img.save(buf, kind="PNG")
+    img.save(buf, format="PNG")
     return buf.getvalue()
 
 
@@ -75,7 +75,9 @@ def send_confirmation(booking: dict):
     token       = booking["ticket_token"]
     payment_id  = booking.get("razorpay_payment_id", "—")
 
-    qr_png     = _make_qr_png(token)
+    BASE_URL = os.getenv('BASE_URL', 'https://byte-website.onrender.com')
+    ticket_url = f"{BASE_URL}/ticket/{token}"
+    qr_png     = _make_qr_png(ticket_url)
     qr_b64     = base64.b64encode(qr_png).decode()
 
     day_badges = _day_badges_html(days, ticket_type)

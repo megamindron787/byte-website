@@ -153,11 +153,32 @@
     </div>
 
     <script>
+        async function refreshStats() {
+            const res = await fetch('/admin/stats', { credentials: 'include' });
+            const s = await res.json();
+            document.querySelector('.stat-card:nth-child(1) .value').textContent = s.total;
+            document.querySelector('.stat-card:nth-child(2) .value').textContent = s.paid;
+            document.querySelector('.stat-card:nth-child(3) .value').textContent = s.unpaid;
+            document.querySelector('.stat-card:nth-child(4) .value').textContent = '₹' + s.revenue.toLocaleString('en-IN');
+            document.querySelector('.stat-card:nth-child(5) .value').textContent = s.week_pass;
+            document.querySelector('.stat-card:nth-child(6) .value').textContent = s.day_pass;
+            // Update day attendance counts
+            const dayCards = document.querySelectorAll('.day-card .day-count');
+            const dayKeys = [1, 2, 3, 4, 5];
+            const maxDay = Math.max(...dayKeys.map(k => s.day_counts[k]), 1);
+            dayKeys.forEach(function (k, i) {
+                dayCards[i].textContent = s.day_counts[k];
+                const bar = dayCards[i].closest('.day-card').querySelector('.bar');
+                bar.style.width = Math.round((s.day_counts[k] / maxDay) * 100) + '%';
+            });
+        }
+
         async function deleteRow(id, btn) {
             if (!confirm('Delete this booking?')) return;
             const res = await fetch('/admin/delete/' + id, { method: 'POST', credentials: 'include' });
             if ((await res.json()).success) {
                 btn.closest('tr').remove();
+                await refreshStats();
             }
         }
 
@@ -167,6 +188,7 @@
             if ((await res.json()).success) {
                 document.getElementById('table-body').innerHTML =
                     '<tr><td colspan="13" class="no-results">No bookings yet</td></tr>';
+                await refreshStats();
             }
         }
 

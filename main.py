@@ -72,6 +72,11 @@ def admin_dashboard():
 def admin_bookings():
     return jsonify([dict(r) for r in get_all_bookings()])
 
+@app.route("/admin/stats")
+@require_auth
+def admin_stats():
+    return jsonify(get_stats())
+
 @app.route("/admin/delete/<int:booking_id>", methods=["POST"])
 @require_auth
 def admin_delete_booking(booking_id):
