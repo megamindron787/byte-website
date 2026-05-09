@@ -1,0 +1,5 @@
+flask
+razorpay
+python-dotenv
+qrcode[pil]
+Pillow
