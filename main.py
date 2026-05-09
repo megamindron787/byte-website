@@ -196,9 +196,7 @@ def admin_delete_all():
     return jsonify(success=True)
 
 
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+
 # =============================================================================
 #  Admin dashboard  GET /admin
 #  Protected by ADMIN_PASSWORD in .env
@@ -230,3 +228,7 @@ def admin_dashboard():
         stats=get_stats(),
         bookings=[dict(r) for r in get_all_bookings()]
     )
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
