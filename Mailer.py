@@ -1,6 +1,6 @@
 """
 Mailer.py — Send HTML confirmation email via Resend API
-Works on all cloud platforms (no SMTP port blocking issues)
+QR code attached as inline image attachment
 """
 
 import os, io, base64, qrcode, resend
@@ -28,7 +28,7 @@ def _make_qr_png(data: str) -> bytes:
     qr.make(fit=True)
     img = qr.make_image(fill_color="#1A1208", back_color="#FAF7F0")
     buf = io.BytesIO()
-    img.save(buf, kind="PNG")
+    img.save(buf, format="PNG")
     return buf.getvalue()
 
 
@@ -75,10 +75,8 @@ def send_confirmation(booking: dict):
     token       = booking["ticket_token"]
     payment_id  = booking.get("razorpay_payment_id", "—")
 
-    # Generate QR and encode as base64 for embedding in HTML
     qr_png     = _make_qr_png(token)
     qr_b64     = base64.b64encode(qr_png).decode()
-    qr_src     = f"data:image/png;base64,{qr_b64}"
 
     day_badges = _day_badges_html(days, ticket_type)
     pass_label = "All-Week Pass" if ticket_type == "week" else "Day Pass"
@@ -109,7 +107,7 @@ def send_confirmation(booking: dict):
         <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td align="center" style="background:#F5F0E8;border:2px dashed rgba(80,55,30,.30);border-radius:8px;padding:24px;">
-            <img src="{qr_src}" width="180" height="180" alt="Your Ticket QR" style="display:block;border-radius:6px;" />
+            <img src="cid:ticket_qr" width="180" height="180" alt="Your Ticket QR" style="display:block;border-radius:6px;margin:0 auto;" />
             <p style="margin:12px 0 4px;font-family:'Courier New',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#7A6A50;">Ticket Token</p>
             <p style="margin:0;font-family:'Courier New',monospace;font-size:13px;font-weight:700;color:#1A1208;letter-spacing:.08em;">{token}</p>
           </td>
@@ -163,6 +161,14 @@ def send_confirmation(booking: dict):
         "to":   [email],
         "subject": f"🎟 Your DevSphere 2025 Ticket — {token}",
         "html": html,
+        "attachments": [
+            {
+                "filename": "ticket_qr.png",
+                "content":  qr_b64,
+                "content_type": "image/png",
+                "content_id": "ticket_qr",
+            }
+        ],
     }
 
     response = resend.Emails.send(params)
