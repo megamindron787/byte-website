@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>DevSphere 2025 — Pune, July 26–30</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&amp;family=DM+Mono:wght@400;500&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+
+  <link href="{{url_for('static', filename = 'index.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- ═══ NAV ═══ -->
+  <nav>
+    <a class="nav-logo" href="#hero"><span class="na">D</span><span class="nb">e</span><span class="nc">v</span><span
+        class="na">S</span><span class="nb">p</span><span class="nc">h</span><span class="nd">e</span><span
+        class="na">r</span><span class="nb">e</span></a>
+    <ul class="nav-links">
+      <li><a href="#about-anchor">About</a></li>
+      <li class="has-dd">
+        <a href="#itinerary">Schedule ▾</a>
+        <div class="dd">
+          <a href="#itinerary" onclick="switchDay(1)">Day 1 — Ignition</a>
+          <a href="#itinerary" onclick="switchDay(2)">Day 2 — Community</a>
+          <a href="#itinerary" onclick="switchDay(3)">Day 3 — Build Mode</a>
+          <a href="#itinerary" onclick="switchDay(4)">Day 4 — Scale Up</a>
+          <a href="#itinerary" onclick="switchDay(5)">Day 5 — Finale</a>
+        </div>
+      </li>
+      <li><a href="#speakers">Speakers</a></li>
+      <li><a href="#sponsors">Sponsors</a></li>
+      <li><a href="#venue">Venue</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-cta" href="#tickets">Get Tickets</a></li>
+    </ul>
+  </nav>
+  <!-- ═══ HERO ═══ -->
+  <section id="hero">
+    <div class="blob" style="width:460px;height:460px;background:#C2410C;top:-150px;left:-170px;--bd:8s;--bdl:0s"></div>
+    <div class="blob" style="width:400px;height:400px;background:#0F766E;bottom:-150px;right:-130px;--bd:9s;--bdl:2s">
+    </div>
+    <div class="blob"
+      style="width:340px;height:340px;background:#A16207;top:42%;left:54%;transform:translateX(-50%);--bd:7s;--bdl:4s">
+    </div>
+    <div class="fpill"
+      style="background:rgba(15,118,110,.12);color:#0F766E;border:1px solid rgba(15,118,110,.25);top:18%;left:5%;--pd:7s;--pdl:0s;--pra:-5deg;--prb:2deg;--pty:-14px">
+      🚀 Hackathon</div>
+    <div class="fpill"
+      style="background:rgba(194,65,12,.12);color:#C2410C;border:1px solid rgba(194,65,12,.25);top:73%;left:4%;--pd:9s;--pdl:1s;--pra:4deg;--prb:-3deg;--pty:-18px">
+      🎮 Gaming</div>
+    <div class="fpill"
+      style="background:rgba(109,40,217,.12);color:#6D28D9;border:1px solid rgba(109,40,217,.25);top:18%;right:4.5%;--pd:8s;--pdl:2s;--pra:5deg;--prb:-4deg;--pty:-13px">
+      💡 Keynotes</div>
+    <div class="fpill"
+      style="background:rgba(161,98,7,.12);color:#A16207;border:1px solid rgba(161,98,7,.25);top:70%;right:5%;--pd:6s;--pdl:.5s;--pra:-4deg;--prb:4deg;--pty:-15px">
+      🔧 Workshops</div>
+    <div class="fpill"
+      style="background:rgba(30,64,175,.12);color:#1E40AF;border:1px solid rgba(30,64,175,.25);top:44%;left:2.5%;--pd:10s;--pdl:1.5s;--pra:2deg;--prb:-5deg;--pty:-17px">
+      🤝 Networking</div>
+    <div class="hero-badge"><span class="ldot"></span>Registrations Open · July 26–30, 2025</div>
+    <h1 class="hero-title"><span class="na">D</span><span class="nb">e</span><span class="nc">v</span><span
+        class="na">S</span><span class="nb">p</span><span class="nc">h</span><span class="nd">e</span><span
+        class="na">r</span><span class="nb">e</span></h1>
+    <p class="hero-subtitle">Pune's Biggest Student Tech Festival</p>
+    <div class="hero-meta">
+      <div class="hm">
+        <div class="hm-val">5</div>
+        <div class="hm-lbl">Days</div>
+      </div>
+      <div class="hm-sep"></div>
+      <div class="hm">
+        <div class="hm-val">30+</div>
+        <div class="hm-lbl">Speakers</div>
+      </div>
+      <div class="hm-sep"></div>
+      <div class="hm">
+        <div class="hm-val">2K+</div>
+        <div class="hm-lbl">Attendees</div>
+      </div>
+      <div class="hm-sep"></div>
+      <div class="hm">
+        <div class="hm-val">₹3L</div>
+        <div class="hm-lbl">Prizes</div>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-a" onclick="document.getElementById('tickets').scrollIntoView({behavior:'smooth'})">Book Your
+        Spot →</button>
+      <button class="btn-b" onclick="document.getElementById('itinerary').scrollIntoView({behavior:'smooth'})">View
+        Schedule</button>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ HORIZONTAL SCROLL ABOUT ═══ -->
+  <div id="about-anchor" style="position:relative;top:-60px"></div>
+  <div id="hs-outer">
+    <div id="hs-sticky">
+      <div id="hs-track">
+        <div class="hpanel">
+          <div class="hpin rv">
+            <div class="sl">About DevSphere</div>
+            <div class="stitle" style="font-size:clamp(2.2rem,4.5vw,4rem)">Where Ideas<br />Collide
+              &amp;<br />Friendships Form</div>
+            <p>DevSphere is a <strong>5-day immersive technology festival</strong> for developers, designers,
+              entrepreneurs, and curious minds. Think Google I/O meets a college carnival — energy cranked to maximum.
+            </p>
+            <p>Keynotes from industry leaders, hands-on workshops, a 48-hour hackathon, gaming tournaments, TED-style
+              talks, mentorship, and a different themed evening every night.</p>
+            <div style="margin-top:1.5rem"><button class="btn-a"
+                onclick="document.getElementById('speakers').scrollIntoView({behavior:'smooth'})">Meet the
+                Speakers</button></div>
+          </div>
+        </div>
+        <div class="hdivider"></div>
+        <div class="hpanel">
+          <div class="hpin rv">
+            <div class="sl">What's Inside</div>
+            <div class="stitle" style="font-size:clamp(2.2rem,4.5vw,4rem)">5 Days.<br />Infinite<br />Possibilities.
+            </div>
+            <p>Whether you're a <strong>first-year student or a seasoned engineer</strong>, DevSphere challenges your
+              thinking, expands your network, and fuels your next big idea.</p>
+            <div class="hpanel-tags">
+              <span class="htag">🎤 Keynotes</span><span class="htag">🛠 Workshops</span><span class="htag">💻
+                Hackathon</span><span class="htag">🎮 Esports</span><span class="htag">🤝 Networking</span><span
+                class="htag">🎵 Carnival Nights</span>
+            </div>
+          </div>
+        </div>
+        <div class="hdivider"></div>
+        <div class="hpanel-stats">
+          <div style="max-width:500px;width:100%">
+            <div class="sl rv">By the Numbers</div>
+            <div class="stitle rv" style="font-size:clamp(2rem,3.8vw,3.4rem);margin-bottom:1.75rem">The Scale of
+              DevSphere</div>
+            <div class="stats-duo">
+              <div class="sc rv">
+                <div class="sc-n" data-count="5">0</div>
+                <div class="sc-l">Days of Events</div>
+              </div>
+              <div class="sc rv d1">
+                <div class="sc-n" data-count="30">0</div>
+                <div class="sc-l">Expert Speakers</div>
+              </div>
+              <div class="sc rv d2">
+                <div class="sc-n" data-count="2000">0</div>
+                <div class="sc-l">Expected Attendees</div>
+              </div>
+              <div class="sc rv d3">
+                <div class="sc-n" data-count="48">0</div>
+                <div class="sc-l">Hour Hackathon</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="hs-hint">SCROLL RIGHT →</div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <!-- ═══ ITINERARY ═══ -->
+  <section id="itinerary">
+    <div class="sw">
+      <div class="rv">
+        <div class="sl">Full Schedule</div>
+        <h2 class="stitle">5 Days. Every Moment<br />Accounted For.</h2>
+        <p class="ssub">Morning talks → Afternoon builds → Sundown Carnival. Each day has a theme, a purpose, and a
+          vibe.</p>
+      </div>
+      <div class="day-tabs rv">
+        <button class="dtab on" onclick="switchDay(1)">Day 1 · Ignition</button>
+        <button class="dtab" onclick="switchDay(2)">Day 2 · Community</button>
+        <button class="dtab" onclick="switchDay(3)">Day 3 · Build Mode</button>
+        <button class="dtab" onclick="switchDay(4)">Day 4 · Scale Up</button>
+        <button class="dtab" onclick="switchDay(5)">Day 5 · Finale</button>
+      </div>
+      <!-- DAY 1 -->
+      <div class="dpanel on" id="day-1">
+        <div class="day-banner">
+          <div>
+            <div class="day-banner-theme">Evening Theme: Welcome &amp; Exploration</div>
+            <div class="day-banner-title">Day 1 — Ignition</div>
+          </div>
+          <div class="day-banner-note">Keep energy controlled. Focus on onboarding, orientation, and setting the tone
+            for the week.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-break">Morning · 09:00 – 13:00</div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">Opening Ceremony</div>
+            <div class="tli-d">Grand opening of DevSphere 2025 — host-led anchor entry, welcome address, and a
+              JARVIS-style dramatic tech reveal to set the stage.</div><span class="tltag tl-k">Ceremony</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">10:00 AM</div>
+            <div class="tli-e">Keynote: State of AI and Future Tech</div>
+            <div class="tli-d">A landmark keynote delivered via Google Developer Groups or Amazon Web Services, covering
+              the current AI landscape and where the next decade leads.</div><span class="tltag tl-k">Keynote</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">11:30 AM</div>
+            <div class="tli-e">Hackathon Announcement &amp; Registration Opens</div>
+            <div class="tli-d">Official announcement of the 48-hour hackathon with problem statements from partners.
+              Teams begin forming and registrations open immediately after.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tl-break">Lunch &amp; Networking · 13:00 – 14:00</div>
+          <div class="tli">
+            <div class="tli-t">13:00 PM</div>
+            <div class="tli-e">Lunch + Networking</div>
+            <div class="tli-d">Catered lunch with structured icebreaker activities. Food stalls open for the first time.
+              A relaxed start to building connections.</div><span class="tltag tl-s">Networking</span>
+          </div>
+          <div class="tl-break">Afternoon · 14:00 – 18:00</div>
+          <div class="tli">
+            <div class="tli-t">14:00 PM</div>
+            <div class="tli-e">Introductory Workshop: AI / ML Fundamentals</div>
+            <div class="tli-d">Beginner-friendly hands-on session covering the foundations of machine learning, model
+              training, and real-world AI applications.</div><span class="tltag tl-w">Workshop</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">15:30 PM</div>
+            <div class="tli-e">Introductory Workshop: Cloud Basics</div>
+            <div class="tli-d">AWS-led session on cloud fundamentals — compute, storage, serverless, and getting your
+              first app live on the cloud in under an hour.</div><span class="tltag tl-w">Workshop</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">17:00 PM</div>
+            <div class="tli-e">Introductory Workshop: Web / App Development</div>
+            <div class="tli-d">Fast-paced intro to modern web and mobile development stacks. Build a working prototype
+              from zero by the end of the session.</div><span class="tltag tl-w">Workshop</span>
+          </div>
+          <div class="tl-break">Sundown Carnival · 18:30 onwards</div>
+          <div class="tli">
+            <div class="tli-t">18:30 PM</div>
+            <div class="tli-e">🎪 Carnival Opens: Welcome &amp; Exploration</div>
+            <div class="tli-d">Acoustic and live music sets, soft-launch food stalls, tech demo booths from sponsors,
+              and structured networking icebreakers. The first taste of what DevSphere nights look like.</div><span
+              class="tltag tl-c">Carnival</span>
+          </div>
+        </div>
+      </div>
+      <!-- DAY 2 -->
+      <div class="dpanel" id="day-2">
+        <div class="day-banner">
+          <div>
+            <div class="day-banner-theme">Evening Theme: Comedy Night 🎭</div>
+            <div class="day-banner-title">Day 2 — Learning &amp; Community</div>
+          </div>
+          <div class="day-banner-note">Highest audience footfall evening. Plan crowd control, seating, and additional
+            food stall capacity.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-break">Morning · 09:00 – 13:00</div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">Parallel Track A: AI / ML</div>
+            <div class="tli-d">Advanced AI track led by GDG On Campus and NVIDIA communities. Covers practical model
+              deployment, fine-tuning, and GPU-accelerated pipelines.</div><span class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">Parallel Track B: Cloud Engineering</div>
+            <div class="tli-d">AWS-led deep dive into cloud-native architecture, microservices, and building resilient
+              distributed systems. Runs simultaneously with Track A.</div><span class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">Parallel Track C: Web &amp; Product Development</div>
+            <div class="tli-d">From design systems to shipping features at scale — a product-focused track covering
+              modern frameworks, UX thinking, and agile practices.</div><span class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tl-break">Lunch &amp; Networking · 13:00 – 14:00</div>
+          <div class="tli">
+            <div class="tli-t">13:00 PM</div>
+            <div class="tli-e">Lunch + Mentor Meet-and-Greet</div>
+            <div class="tli-d">Attendees get informal face-time with speakers and mentors during lunch. Open seating, no
+              agenda — just great conversations.</div><span class="tltag tl-s">Networking</span>
+          </div>
+          <div class="tl-break">Afternoon · 14:00 – 18:00</div>
+          <div class="tli">
+            <div class="tli-t">14:00 PM</div>
+            <div class="tli-e">Hands-On Workshops by Track</div>
+            <div class="tli-d">Each morning track transitions into practical, hands-on sessions. Attendees build real
+              projects within their chosen domain with mentor support throughout.</div><span
+              class="tltag tl-w">Workshop</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">16:00 PM</div>
+            <div class="tli-e">Mini Challenges: Cross-Track Competition</div>
+            <div class="tli-d">Fast-paced mini challenges within each track. Win swag, recognition, and early hackathon
+              advantages. Fun, competitive, beginner-friendly.</div><span class="tltag tl-g">Challenge</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">17:00 PM</div>
+            <div class="tli-e">Mentor Interaction Sessions</div>
+            <div class="tli-d">Structured 1-on-1 and small group sessions with visiting mentors from industry. Book
+              slots at the mentor desk in the networking lounge.</div><span class="tltag tl-w">Mentorship</span>
+          </div>
+          <div class="tl-break">Sundown Carnival · 18:30 onwards</div>
+          <div class="tli">
+            <div class="tli-t">18:30 PM</div>
+            <div class="tli-e">🎭 Carnival: Comedy Night</div>
+            <div class="tli-d">Stand-up comedy headliner supported by opening acts and a controlled open mic. Fully
+              active food stalls and light networking zones — the loudest, most attended night of the event.</div><span
+              class="tltag tl-c">Carnival</span>
+          </div>
+        </div>
+      </div>
+      <!-- DAY 3 -->
+      <div class="dpanel" id="day-3">
+        <div class="day-banner">
+          <div>
+            <div class="day-banner-theme">Evening Theme: Games &amp; Interaction 🎮</div>
+            <div class="day-banner-title">Day 3 — Build Mode</div>
+          </div>
+          <div class="day-banner-note">Do not over-energize this night. The carnival should support hackathon
+            productivity, not disrupt the grind.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-break">Morning · 09:00 – 13:00</div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">🚀 Hackathon Kickoff — 48 Hours Begins</div>
+            <div class="tli-d">Official start of the DevSphere Hackathon. Teams receive final problem statements sourced
+              from sponsor partners. Briefing, rules, and judging criteria announced live.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">10:00 AM</div>
+            <div class="tli-e">Team Formation &amp; Briefing</div>
+            <div class="tli-d">Solo participants find teammates at the formation zone. Problem statement deep-dives with
+              mentors begin. Teams register their track and check into the hackathon zone.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">11:00 AM</div>
+            <div class="tli-e">Talk: Ethics in Technology</div>
+            <div class="tli-d">A thought-provoking session on algorithmic bias, responsible AI, and the human side of
+              building at scale — timely fuel for teams starting their hackathon builds.</div><span
+              class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tl-break">Lunch &amp; Networking · 13:00 – 14:00</div>
+          <div class="tli">
+            <div class="tli-t">13:00 PM</div>
+            <div class="tli-e">Lunch Break</div>
+            <div class="tli-d">Hackathon teams encouraged to take a real break. Food court running at full capacity.
+            </div><span class="tltag tl-s">Break</span>
+          </div>
+          <div class="tl-break">Afternoon · 14:00 – 18:00</div>
+          <div class="tli">
+            <div class="tli-t">14:00 PM</div>
+            <div class="tli-e">Hackathon Build Sprint</div>
+            <div class="tli-d">Full build mode. Mentor rounds from GDG On Campus, AWS, and NVIDIA representatives
+              actively visit teams. Technical support desks fully staffed across all three zones.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">16:00 PM</div>
+            <div class="tli-e">Workshop: UI / UX for Developers</div>
+            <div class="tli-d">Practical design thinking for engineers building their hackathon projects. Learn to ship
+              interfaces that work and feel right — fast.</div><span class="tltag tl-w">Workshop</span>
+          </div>
+          <div class="tl-break">Sundown Carnival · 18:30 onwards</div>
+          <div class="tli">
+            <div class="tli-t">18:30 PM</div>
+            <div class="tli-e">🎮 Carnival: Games &amp; Interaction Arena</div>
+            <div class="tli-d">Tech quiz battles, esports tournaments (qualifier rounds), rapid challenges, and a chill
+              background music set. Networking lounges and continuous food service. Energy is calm and focused.</div>
+            <span class="tltag tl-c">Carnival</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">22:00 PM</div>
+            <div class="tli-e">Late Night Hack + Pizza &amp; Energy Drop 🍕</div>
+            <div class="tli-d">The hackathon zone runs through the night. Lo-fi music, unlimited snacks, NVIDIA GPU
+              cloud credit drops, and surprise sponsor swag at midnight.</div><span class="tltag tl-h">Hackathon</span>
+          </div>
+        </div>
+      </div>
+      <!-- DAY 4 -->
+      <div class="dpanel" id="day-4">
+        <div class="day-banner">
+          <div>
+            <div class="day-banner-theme">Evening Theme: DJ &amp; Release Night 🎵</div>
+            <div class="day-banner-title">Day 4 — Build + Scale + Culture</div>
+          </div>
+          <div class="day-banner-note">Schedule the DJ set only after major hackathon progress milestones. Avoid
+            impacting final submissions.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-break">Morning · 09:00 – 13:00</div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">Advanced Session: Scaling AI Systems</div>
+            <div class="tli-d">How do you take a working AI prototype to production at scale? A technical deep-dive
+              covering infrastructure, monitoring, and performance optimization.</div><span
+              class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">10:30 AM</div>
+            <div class="tli-e">Advanced Session: Startup Building in 2025</div>
+            <div class="tli-d">From idea to investment — a founder-led session on validating ideas, raising your first
+              round, and the realities of early-stage company building in India's tech ecosystem.</div><span
+              class="tltag tl-k">Talk</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">12:00 PM</div>
+            <div class="tli-e">Real-World Case Studies Panel</div>
+            <div class="tli-d">Industry leaders share behind-the-scenes stories of building and scaling products that
+              millions use. Lessons from failures, pivots, and breakout moments.</div><span
+              class="tltag tl-k">Panel</span>
+          </div>
+          <div class="tl-break">Lunch &amp; Networking · 13:00 – 14:00</div>
+          <div class="tli">
+            <div class="tli-t">13:00 PM</div>
+            <div class="tli-e">Lunch + Startup Pitch Practice</div>
+            <div class="tli-d">Informal pitch practice sessions over lunch. Mentors provide rapid feedback to hackathon
+              teams preparing for tomorrow's presentations.</div><span class="tltag tl-s">Networking</span>
+          </div>
+          <div class="tl-break">Afternoon · 14:00 – 18:00</div>
+          <div class="tli">
+            <div class="tli-t">14:00 PM</div>
+            <div class="tli-e">Hackathon Continues — Internal Evaluations</div>
+            <div class="tli-d">Mentors conduct structured evaluation rounds. Teams receive feedback and time to iterate.
+              AWS credits and cloud deployment support available on-demand.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">16:00 PM</div>
+            <div class="tli-e">Startup Pitch Practice Sessions</div>
+            <div class="tli-d">Formal pitch practice in front of small mentor panels. Teams get 5 minutes to present and
+              5 minutes of feedback — exactly like the real judging tomorrow.</div><span
+              class="tltag tl-w">Mentorship</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">17:30 PM</div>
+            <div class="tli-e">Career Fair &amp; Sponsor Showcase</div>
+            <div class="tli-d">Exclusive networking with recruiters from Mercedes-Benz Tech, NVIDIA, and AWS. Bring your
+              CV. On-the-spot interview scheduling available.</div><span class="tltag tl-s">Networking</span>
+          </div>
+          <div class="tl-break">Sundown Carnival · 18:30 onwards</div>
+          <div class="tli">
+            <div class="tli-t">18:30 PM</div>
+            <div class="tli-e">🎵 Carnival: DJ &amp; Release Night</div>
+            <div class="tli-d">Full DJ set with professional light and stage setup. Dance zones, social gathering
+              spaces, and late-night food operations. The energy release before the final day.</div><span
+              class="tltag tl-c">Carnival</span>
+          </div>
+        </div>
+      </div>
+      <!-- DAY 5 -->
+      <div class="dpanel" id="day-5">
+        <div class="day-banner">
+          <div>
+            <div class="day-banner-theme">Evening Theme: Grand Finale 🏆</div>
+            <div class="day-banner-title">Day 5 — Showcase &amp; Finale</div>
+          </div>
+          <div class="day-banner-note">This must feel premium and structured. No chaos, no delays. Every moment is
+            choreographed.</div>
+        </div>
+        <div class="tl">
+          <div class="tl-break">Morning · 09:00 – 13:00</div>
+          <div class="tli">
+            <div class="tli-t">09:00 AM</div>
+            <div class="tli-e">⏱ Hackathon Submissions Close</div>
+            <div class="tli-d">All projects submitted via the official platform. No late entries. Teams move to demo
+              preparation — final polish, slide decks, and rehearsal time.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">10:00 AM</div>
+            <div class="tli-e">TED-Style Talks</div>
+            <div class="tli-d">A curated series of short, high-impact talks in TED format (subject to TEDx approval).
+              Six speakers, 15 minutes each, on ideas shaping the next decade.</div><span
+              class="tltag tl-k">Talks</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">12:00 PM</div>
+            <div class="tli-e">Final Demo Preparation</div>
+            <div class="tli-d">Teams set up demo stations. Judges conduct orientation. Technical checks, projection
+              tests, and final rehearsals across all judging rooms.</div><span class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tl-break">Afternoon · 14:00 – 18:00</div>
+          <div class="tli">
+            <div class="tli-t">14:00 PM</div>
+            <div class="tli-e">Final Presentations &amp; Judging Rounds</div>
+            <div class="tli-d">Teams present their projects to a multi-panel judging board. Each team gets 8 minutes to
+              present and 4 minutes for judge Q&amp;A.</div><span class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">16:00 PM</div>
+            <div class="tli-e">Top Team Showcases — Public Stage</div>
+            <div class="tli-d">Shortlisted finalist teams present to the full DevSphere audience on the main stage. Open
+              for all attendees and sponsors to watch and vote for People's Choice.</div><span
+              class="tltag tl-h">Hackathon</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">17:00 PM</div>
+            <div class="tli-e">Esports Grand Finals 🏆</div>
+            <div class="tli-d">Top 8 teams battle for the DevSphere Gaming Cup and ₹50,000 prize pool. Main stage, live
+              commentary, and audience voting.</div><span class="tltag tl-g">Esports</span>
+          </div>
+          <div class="tl-break">Grand Finale · 18:30 onwards</div>
+          <div class="tli">
+            <div class="tli-t">18:30 PM</div>
+            <div class="tli-e">🏆 Awards Ceremony</div>
+            <div class="tli-d">Hackathon winners announced across all categories: Best AI, Best Design, Best Social
+              Impact, and the Grand Prix (₹1,50,000). Esports champions crowned.</div><span
+              class="tltag tl-c">Awards</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">19:30 PM</div>
+            <div class="tli-e">Event Recap Showcase &amp; Closing Address</div>
+            <div class="tli-d">A cinematic recap of all 5 days, closing addresses from the organizing team and sponsors,
+              and the official announcement of DevSphere 2026.</div><span class="tltag tl-c">Ceremony</span>
+          </div>
+          <div class="tli">
+            <div class="tli-t">20:00 PM</div>
+            <div class="tli-e">Live Music / Band &amp; Final Networking</div>
+            <div class="tli-d">Live band performance, final sponsor networking session, photo booth, and the last dinner
+              together before everyone goes home with new friendships, new skills, and new ideas.</div><span
+              class="tltag tl-c">Carnival</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ SPEAKERS ═══ -->
+  <section id="speakers">
+    <div class="sw">
+      <div class="rv">
+        <div class="sl">This Year's Lineup</div>
+        <h2 class="stitle">Our Speakers</h2>
+        <p class="ssub">Visionaries and builders from the world's most impactful organisations. Hover any card to learn
+          their story.</p>
+      </div>
+      <div class="spk-grid">
+        <div class="spk-card rv">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/32.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Arjun Krishnan</h4>
+            <div class="role">VP Engineering · Google DeepMind</div>
+            <p>15 years at Google across Search and DeepMind. Co-authored 3 landmark LLM papers. Advisor to 12 AI
+              startups. Champion of multilingual AI access.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Arjun Krishnan</div>
+            <div class="spk-role">VP of Engineering</div>
+            <div class="spk-org">Google DeepMind</div>
+            <div class="spk-topic">"The Architecture of General Intelligence"</div>
+          </div>
+        </div>
+        <div class="spk-card rv d1">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/44.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Shreya Patel</h4>
+            <div class="role">AI Research Lead · NVIDIA</div>
+            <p>PhD Computer Vision, IIT Bombay. Her GPU-parallel inference architecture runs across 200+ enterprises
+              globally. Forbes 30 Under 30, 2022.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Shreya Patel</div>
+            <div class="spk-role">AI Research Lead</div>
+            <div class="spk-org">NVIDIA Research</div>
+            <div class="spk-topic">"GPU-Accelerated Futures: Beyond Gaming"</div>
+          </div>
+        </div>
+        <div class="spk-card rv d2">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/75.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Rahul Mehra</h4>
+            <div class="role">Head of Innovation · Mercedes-Benz Tech</div>
+            <p>20 years in automotive tech. Led India's first ADAS-certified road-mapping pipeline. Keynote at CES 2023
+              and 2024.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Rahul Mehra</div>
+            <div class="spk-role">Head of Innovation</div>
+            <div class="spk-org">Mercedes-Benz Tech</div>
+            <div class="spk-topic">"Autonomous Mobility: 10 Lessons Learned"</div>
+          </div>
+        </div>
+        <div class="spk-card rv">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/65.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Nadia Johnson</h4>
+            <div class="role">TEDx Speaker &amp; Author</div>
+            <p>3× TEDx speaker, 18M views. Author of "Build Broken". Lost ₹4 crore in her first startup before building
+              a profitable company from scratch.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Nadia Johnson</div>
+            <div class="spk-role">TEDx Speaker &amp; Author</div>
+            <div class="spk-org">TED Talks</div>
+            <div class="spk-topic">"Why Failure Is Your Most Valuable Product"</div>
+          </div>
+        </div>
+        <div class="spk-card rv d1">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/52.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Vikram Sharma</h4>
+            <div class="role">Community Lead · GDGOC India</div>
+            <p>Co-founder of 3 communities, 80,000+ engineers. Organised 150+ GDG events since 2016. Former engineer at
+              Flipkart and Swiggy.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Vikram Sharma</div>
+            <div class="spk-role">Community Lead</div>
+            <div class="spk-org">GDGOC India</div>
+            <div class="spk-topic">"Building Developer Communities at Scale"</div>
+          </div>
+        </div>
+        <div class="spk-card rv d2">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/28.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Lena Chen</h4>
+            <div class="role">Principal Scientist · GDGOC Global</div>
+            <p>Core TensorFlow contributor for 6 years. Mentored 300+ women engineers. Cited in Wired and MIT Technology
+              Review.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Lena Chen</div>
+            <div class="spk-role">Principal Scientist</div>
+            <div class="spk-org">GDGOC Global</div>
+            <div class="spk-topic">"Open Source AI: Democratising Intelligence"</div>
+          </div>
+        </div>
+        <div class="spk-card rv">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/18.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Dev Kumar</h4>
+            <div class="role">Founder &amp; CEO · YC W24</div>
+            <p>Founded at 19 from a Pune hostel. YC W24, $2.3M seed, 12 enterprise clients in 8 months. SaaS for
+              Southeast Asian compliance.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Dev Kumar</div>
+            <div class="spk-role">Founder &amp; CEO</div>
+            <div class="spk-org">Y Combinator W24</div>
+            <div class="spk-topic">"From Dorm Room to Series A in 18 Months"</div>
+          </div>
+        </div>
+        <div class="spk-card rv d1">
+          <div class="spk-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/12.jpg" />
+          </div>
+          <div class="spk-popup">
+            <h4>Maria Alvarez</h4>
+            <div class="role">Security Researcher · Google Project Zero</div>
+            <p>9 CVEs on major AI platforms. Red-team at Palantir before Google. Teaches at DEF CON AI Village. 70K
+              newsletter readers.</p>
+          </div>
+          <div class="spk-bottom">
+            <div class="spk-name">Maria Alvarez</div>
+            <div class="spk-role">Security Researcher</div>
+            <div class="spk-org">Google Project Zero</div>
+            <div class="spk-topic">"Hidden Vulnerabilities of Modern AI Systems"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ PREV SPEAKERS TICKER ═══ -->
+  <section id="prev-speakers">
+    <div class="prev-head rv">
+      <div class="sl">Past Voices</div>
+      <h2 class="stitle" style="font-size:clamp(2.2rem,4.5vw,3.8rem)">Previous Speakers</h2>
+      <p
+        style="color:var(--sp-muted);font-size:.88rem;max-width:400px;line-height:1.7;margin-top:.4rem;transition:color .6s">
+        Hover the strip to pause and explore speakers from past editions.</p>
+    </div>
+    <div class="ticker-wrap">
+      <div class="ticker-track">
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/11.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Karthik Padmanabhan</div>
+            <div class="prev-role">Dev Relations, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/22.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Nikita Gandhi</div>
+            <div class="prev-role">TPM, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/33.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Vrijraj Singh</div>
+            <div class="prev-role">GDE &amp; SaaS Developer</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/44.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Dhruva Modak</div>
+            <div class="prev-role">Level Designer, Ubisoft</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/55.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Shridhar Mankar</div>
+            <div class="prev-role">Founder, 5 Min Engineering</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/66.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Bhushan Garware</div>
+            <div class="prev-role">AI Consultant, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/77.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Saurabh Mishra</div>
+            <div class="prev-role">DevOps &amp; Cloud Evangelist</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/88.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Vaibhav Malpani</div>
+            <div class="prev-role">GDE, Technical Lead Incedo</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/33.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Priya Nair</div>
+            <div class="prev-role">Data Science Lead, Microsoft</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/99.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Aryan Mehta</div>
+            <div class="prev-role">CTO, Razorpay</div>
+          </div>
+        </div>
+        <!-- duplicate -->
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/11.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Karthik Padmanabhan</div>
+            <div class="prev-role">Dev Relations, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/22.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Nikita Gandhi</div>
+            <div class="prev-role">TPM, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/33.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Vrijraj Singh</div>
+            <div class="prev-role">GDE &amp; SaaS Developer</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/44.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Dhruva Modak</div>
+            <div class="prev-role">Level Designer, Ubisoft</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/55.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Shridhar Mankar</div>
+            <div class="prev-role">Founder, 5 Min Engineering</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/66.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Bhushan Garware</div>
+            <div class="prev-role">AI Consultant, Google</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/77.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Saurabh Mishra</div>
+            <div class="prev-role">DevOps &amp; Cloud Evangelist</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/88.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Vaibhav Malpani</div>
+            <div class="prev-role">GDE, Technical Lead Incedo</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/women/33.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Priya Nair</div>
+            <div class="prev-role">Data Science Lead, Microsoft</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-photo"><img alt="" loading="lazy" src="https://randomuser.me/api/portraits/men/99.jpg" />
+          </div>
+          <div class="prev-info">
+            <div class="prev-name">Aryan Mehta</div>
+            <div class="prev-role">CTO, Razorpay</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ SPONSORS — Carousel ═══ -->
+  <section id="sponsors">
+    <div class="sp-intro-wrap rv">
+      <div class="sl">Our Partners</div>
+      <h2 class="stitle">Powered By<br />The Best</h2>
+      <p class="ssub" style="margin-bottom:.5rem">The logo in the spotlight drives the site's colour theme. Scroll away
+        to reset.</p>
+    </div>
+    <div class="sp-carousel-outer">
+      <div class="sp-spotlight" id="sp-spotlight"></div>
+      <div class="sp-carousel-track" id="sp-track">
+        <!-- Cards injected by JS for clean duplication -->
+      </div>
+    </div>
+    <p
+      style="text-align:center;font-family:var(--fm);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--sp-muted);margin-top:.5rem;transition:color .6s">
+      Hover centre logo to pause · Scroll away to reset theme</p>
+    <div class="sp-controls rv">
+      <div class="sp-dot-row" id="sp-dot-row"></div>
+    </div>
+    <!-- Active sponsor info -->
+    <div class="sp-active-info rv" id="sp-active-info">
+      <div class="sp-info-copy" id="sp-info-copy">
+        <h3 id="sp-info-name"></h3>
+        <p id="sp-info-desc"></p>
+        <div class="sp-info-tags" id="sp-info-tags"></div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ VENUE ═══ -->
+  <section id="venue">
+    <div class="sw">
+      <div class="rv">
+        <div class="sl">Venue</div>
+        <h2 class="stitle">PVPIT College<br />Bavdhan, Pune</h2>
+      </div>
+      <div class="venue-grid rv">
+        <div>
+          <p class="venue-p">DevSphere 2025 takes place at <strong style="color:var(--sp-text)">Pimpri Chinchwad College
+              of Engineering and Research (PVPIT)</strong>, Bavdhan — one of Pune's most vibrant engineering campuses
+            with state-of-the-art facilities purpose-built for large-scale events.</p>
+          <p class="venue-p">Grand auditorium, multiple seminar halls, open-air amphitheatre, strong Wi-Fi backbone,
+            300+ power outlets, and 3 full canteens — ideal for DevSphere's 5-day format.</p>
+          <div class="vd-list">
+            <div class="vdi"><span class="vdi-icon">📍</span>
+              <div><span class="vdi-lbl">PVPIT — Pimpri Chinchwad College of Engineering &amp; Research</span><span
+                  class="vdi-val">Survey No. 27, Bavdhan, Pune, Maharashtra 411021</span></div>
+            </div>
+            <div class="vdi"><span class="vdi-icon">🚌</span>
+              <div><span class="vdi-lbl">By Bus</span><span class="vdi-val">PMPML to Bavdhan Phata stop — 5-min walk to
+                  campus gate</span></div>
+            </div>
+            <div class="vdi"><span class="vdi-icon">🚗</span>
+              <div><span class="vdi-lbl">By Car / Cab</span><span class="vdi-val">20 min from Shivajinagar · 25 min from
+                  Pune Station via Paud Road</span></div>
+            </div>
+            <div class="vdi"><span class="vdi-icon">✈️</span>
+              <div><span class="vdi-lbl">By Air</span><span class="vdi-val">~40 minutes from Pune International
+                  Airport</span></div>
+            </div>
+            <div class="vdi"><span class="vdi-icon">🏨</span>
+              <div><span class="vdi-lbl">Partner Hotels</span><span class="vdi-val">2 hotels on Paud Road with DevSphere
+                  rates from ₹1,800/night</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="venue-stats rv d1">
+          <h4>Campus Highlights</h4>
+          <div class="vs-row"><span>🎭 Main Auditorium</span><strong>1,500 seats</strong></div>
+          <div class="vs-row"><span>🏛 Seminar Halls</span><strong>8 halls</strong></div>
+          <div class="vs-row"><span>💻 Computer Labs</span><strong>6 labs · 240 systems</strong></div>
+          <div class="vs-row"><span>⚡ Power Outlets</span><strong>300+</strong></div>
+          <div class="vs-row"><span>🌐 Campus Wi-Fi</span><strong>1 Gbps fibre</strong></div>
+          <div class="vs-row"><span>🌳 Outdoor Stage</span><strong>Amphitheatre lawn</strong></div>
+          <div class="vs-row"><span>🍽 Food Courts</span><strong>3 on-campus canteens</strong></div>
+          <div class="vs-row"><span>🅿️ Parking</span><strong>400+ vehicle capacity</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ TICKETS ═══ -->
+  <section id="tickets">
+    <div class="sw">
+      <div class="rv">
+        <div class="sl">Tickets</div>
+        <h2 class="stitle">Build Your<br />Own Pass</h2>
+        <p class="ssub">Attend the days you want at ₹500/day, or grab the full All-Week Pass for ₹2,000 and save ₹500.
+        </p>
+      </div>
+      <div class="tix-container">
+        <!-- Mode toggle -->
+        <div class="tix-mode-toggle rv">
+          <button class="tmt-btn on" id="btn-pick" onclick="setTicketMode('pick')">Pick My Days</button>
+          <button class="tmt-btn" id="btn-week" onclick="setTicketMode('week')">All-Week Pass</button>
+        </div>
+        <!-- Day picker mode -->
+        <div class="day-picker-mode active" id="mode-pick">
+          <div class="day-picker rv">
+            <div class="dp-day" onclick="toggleDay(this,1)">
+              <div class="dp-num">26</div>
+              <div class="dp-name">Jul · Day 1</div>
+              <div class="dp-theme">Ignition</div>
+              <div class="dp-price">₹500</div>
+            </div>
+            <div class="dp-day" onclick="toggleDay(this,2)">
+              <div class="dp-num">27</div>
+              <div class="dp-name">Jul · Day 2</div>
+              <div class="dp-theme">Community</div>
+              <div class="dp-price">₹500</div>
+            </div>
+            <div class="dp-day" onclick="toggleDay(this,3)">
+              <div class="dp-num">28</div>
+              <div class="dp-name">Jul · Day 3</div>
+              <div class="dp-theme">Build Mode</div>
+              <div class="dp-price">₹500</div>
+            </div>
+            <div class="dp-day" onclick="toggleDay(this,4)">
+              <div class="dp-num">29</div>
+              <div class="dp-name">Jul · Day 4</div>
+              <div class="dp-theme">Scale Up</div>
+              <div class="dp-price">₹500</div>
+            </div>
+            <div class="dp-day" onclick="toggleDay(this,5)">
+              <div class="dp-num">30</div>
+              <div class="dp-name">Jul · Day 5</div>
+              <div class="dp-theme">Finale</div>
+              <div class="dp-price">₹500</div>
+            </div>
+          </div>
+          <!-- Price bar -->
+          <div class="price-bar rv">
+            <div>
+              <div class="pb-label">Your Total</div>
+              <div class="pb-detail" id="pb-detail">Select days above to begin</div>
+            </div>
+            <div class="pb-amount" id="pb-amount">₹0</div>
+          </div>
+
+          <button class="btn-a rv" id="btn-book-days" onclick="bookDays()" `
+            style="width:100%;justify-content:center;opacity:.5;pointer-events:none">Select at least one day →
+          </button>
+
+        </div>
+        <!-- All-week mode -->
+        <div class="day-picker-mode" id="mode-week">
+          <div class="week-card">
+            <div class="week-badge">BEST VALUE</div>
+            <div class="week-price"><sup>₹</sup>2,000</div>
+            <div class="week-sub">All 5 days · July 26–30, 2025 · Save ₹500</div>
+            <div class="week-feats">
+              <div class="week-feat">Full access all 5 days (26–30 July)</div>
+              <div class="week-feat">All keynotes, talks, and panel sessions</div>
+              <div class="week-feat">Unlimited workshop access</div>
+              <div class="week-feat">Hackathon entry (team of up to 4)</div>
+              <div class="week-feat">All 5 Sundown Carnival nights</div>
+              <div class="week-feat">Career fair &amp; sponsor networking</div>
+              <div class="week-feat">Grand Finale + Awards Ceremony</div>
+            </div>
+            <button class="btn-a" onclick="window.location.href='/checkout?days=1,2,3,4,5&amount=2000&type=week'"
+              style="width:100%">Get All-Week Pass →</button>
+          </div>
+        </div>
+        <p
+          style="text-align:center;color:var(--sp-muted);font-size:.73rem;margin-top:1.4rem;font-family:var(--fm);font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:color .6s">
+          Student discounts available · Valid ID required at entry · Non-refundable</p>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+  <!-- ═══ CONTACT ═══ -->
+  <section id="contact">
+    <div class="sw">
+      <div class="cont-grid">
+        <div class="rv">
+          <div class="sl">Contact</div>
+          <h2 class="stitle" style="font-size:clamp(2.4rem,5vw,4.5rem)">Let's Talk</h2>
+          <p>Questions about DevSphere? Want to explore sponsorship, media partnerships, or volunteer? We'd love to hear
+            from you.</p>
+          <div class="ch-list">
+            <div class="ch-item"><span class="ch-icon">✉️</span>
+              <div>
+                <div class="ch-l">General Inquiries</div>
+                <div class="ch-v">hello@devsphere2025.in</div>
+              </div>
+            </div>
+            <div class="ch-item"><span class="ch-icon">🤝</span>
+              <div>
+                <div class="ch-l">Sponsorships</div>
+                <div class="ch-v">partners@devsphere2025.in</div>
+              </div>
+            </div>
+            <div class="ch-item"><span class="ch-icon">📰</span>
+              <div>
+                <div class="ch-l">Press &amp; Media</div>
+                <div class="ch-v">media@devsphere2025.in</div>
+              </div>
+            </div>
+            <div class="ch-item"><span class="ch-icon">📞</span>
+              <div>
+                <div class="ch-l">Phone</div>
+                <div class="ch-v">+91 98765 43210</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rv d1">
+          <form class="cf" onsubmit="handleSubmit(event)">
+            <div class="cf-row">
+              <div class="fg"><label>First Name</label><input placeholder="Arjun" required="" type="text" /></div>
+              <div class="fg"><label>Last Name</label><input placeholder="Sharma" required="" type="text" /></div>
+            </div>
+            <div class="fg"><label>Email</label><input placeholder="arjun@example.com" required="" type="email" /></div>
+            <div class="fg"><label>Subject</label>
+              <select>
+                <option>General Inquiry</option>
+                <option>Sponsorship Opportunity</option>
+                <option>Speaker Application</option>
+                <option>Media &amp; Press</option>
+                <option>Ticket Support</option>
+                <option>Volunteer</option>
+              </select>
+            </div>
+            <div class="fg"><label>Message</label><textarea placeholder="Tell us what's on your mind..."></textarea>
+            </div>
+            <button class="btn-a" id="fbtn" style="align-self:flex-start" type="submit">Send Message →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="fin">
+      <div class="fg-grid">
+        <div class="fb">
+          <a class="nav-logo" href="#hero"><span class="na">D</span><span class="nb">e</span><span
+              class="nc">v</span><span class="na">S</span><span class="nb">p</span><span class="nc">h</span><span
+              class="nd">e</span><span class="na">r</span><span class="nb">e</span></a>
+          <p>5 days. 30+ speakers. One community. The future starts at PVPIT Bavdhan, July 2025.</p>
+          <div style="margin-top:1.1rem;display:flex;gap:.5rem">
+            <a href="#"
+              style="width:30px;height:30px;border-radius:7px;background:var(--sp-card);border:1px solid var(--sp-border);display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s">𝕏</a>
+            <a href="#"
+              style="width:30px;height:30px;border-radius:7px;background:var(--sp-card);border:1px solid var(--sp-border);display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s">in</a>
+            <a href="#"
+              style="width:30px;height:30px;border-radius:7px;background:var(--sp-card);border:1px solid var(--sp-border);display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .2s">ig</a>
+          </div>
+        </div>
+        <div class="fc">
+          <h5>Event</h5><a href="#about-anchor">About</a><a href="#itinerary">Schedule</a><a
+            href="#speakers">Speakers</a><a href="#venue">Venue</a>
+        </div>
+        <div class="fc">
+          <h5>Participate</h5><a href="#tickets">Buy Tickets</a><a href="#contact">Volunteer</a><a
+            href="#contact">Speaker Apply</a><a href="#sponsors">Sponsorships</a>
+        </div>
+        <div class="fc">
+          <h5>Resources</h5><a href="#">Code of Conduct</a><a href="#">FAQ</a><a href="#">Press Kit</a><a
+            href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="fbot">
+        <span>© 2025 DevSphere. All rights reserved.</span>
+        <div class="fdots">
+          <div class="fdot" style="background:var(--accent)"></div>
+          <div class="fdot" style="background:var(--accent2)"></div>
+          <div class="fdot" style="background:var(--accent3)"></div>
+          <div class="fdot" style="background:var(--accent4)"></div>
+        </div>
+        <span>Made with ♥ at PVPIT, Bavdhan, Pune</span>
+      </div>
+    </div>
+  </footer>
+  <script>
+    /* ── Reveal ── */
+    (function () {
+      var io = new IntersectionObserver(function (e) { e.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('on'); io.unobserve(x.target) } }) }, { threshold: .1 });
+      document.querySelectorAll('.rv').forEach(function (el) { io.observe(el) });
+    })();
+
+    /* ── Count-up ── */
+    (function () {
+      var io = new IntersectionObserver(function (e) {
+        e.forEach(function (x) {
+          if (!x.isIntersecting) return;
+          var el = x.target, t = +el.dataset.count, v = 0, inc = t / 60;
+          var r = setInterval(function () { v = Math.min(v + inc, t); el.textContent = Math.floor(v) + (t > 100 ? '+' : ''); if (v >= t) clearInterval(r) }, 16);
+          io.unobserve(el);
+        })
+      }, { threshold: .5 });
+      document.querySelectorAll('[data-count]').forEach(function (el) { io.observe(el) });
+    })();
+
+    /* ── Horizontal scroll ── */
+    (function () {
+      var outer = document.getElementById('hs-outer');
+      var track = document.getElementById('hs-track');
+      if (!outer || !track) return;
+      // Use 2.2x viewport so the section is shorter (was 3x before)
+      function resize() {
+        var sw = track.scrollWidth - window.innerWidth;
+        outer.style.height = (window.innerHeight + sw) + 'px';
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      window.addEventListener('scroll', function () {
+        var r = outer.getBoundingClientRect();
+        if (r.top <= 0 && r.bottom >= window.innerHeight) {
+          var tx = Math.min(-r.top, track.scrollWidth - window.innerWidth);
+          track.style.transform = 'translateX(-' + tx + 'px)';
+        }
+      }, { passive: true });
+    })();
+
+    /* ── Day tabs ── */
+    function switchDay(n) {
+      document.querySelectorAll('.dpanel').forEach(function (p) { p.classList.remove('on') });
+      document.querySelectorAll('.dtab').forEach(function (b) { b.classList.remove('on') });
+      document.getElementById('day-' + n).classList.add('on');
+      document.querySelectorAll('.dtab')[n - 1].classList.add('on');
+    }
+
+    /* ═══════════════════════════════
+       SPONSORS CAROUSEL
+       Logos scroll in a marquee at
+       constant speed. The card closest
+       to the horizontal centre of the
+       viewport is the "active" sponsor
+       and drives the theme.
+       Scrolling away from #sponsors
+       resets the theme.
+    ═══════════════════════════════ */
+    (function () {
+      var SPONSORS = [
+        {
+          id: 'mercedes', cls: 'sp-mercedes', name: 'Mercedes-Benz', tier: 'Platinum Sponsor',
+          logo: '⭐', logoBg: 'linear-gradient(135deg,#D4D4D4,#9A9A9A)', logoColor: '#111',
+          desc: 'The world\'s most iconic automotive brand joins DevSphere as Platinum Sponsor. Mercedes-Benz Tech India is at the forefront of autonomous mobility, software-defined vehicles, and AI-powered engineering.',
+          tags: ['🚗 Autonomous Mobility', '🤖 AI Engineering', '💼 Hiring @ DevSphere'],
+          dot: '#888'
+        },
+        {
+          id: 'tedtalk', cls: 'sp-tedtalk', name: 'TED Talks', tier: 'Ideas Sponsor',
+          logo: 'TED', logoBg: '#CC0000', logoColor: '#fff',
+          desc: 'TED — the global platform for ideas worth spreading — partners with DevSphere to bring the TED format to Pune\'s student community, shaping our keynote and talk formats across all five days.',
+          tags: ['💡 Ideas Worth Spreading', '🎤 Curated Keynotes', '📚 Storytelling Masterclass'],
+          dot: '#CC0000'
+        },
+        {
+          id: 'gdgoc', cls: 'sp-gdgoc', name: 'GDGOC', tier: 'Community Sponsor',
+          logo: 'GDG', logoBg: 'linear-gradient(135deg,#4285F4,#34A853)', logoColor: '#fff',
+          desc: 'Google Developer Groups on Campus (GDGOC) is the backbone of India\'s student developer community. As Community Sponsor, GDGOC brings 25+ Pune campus chapters together under one DevSphere roof.',
+          tags: ['🌐 25+ Campus Chapters', '👨‍💻 Student Community', '🔗 Developer Network'],
+          dot: '#1E40AF'
+        },
+        {
+          id: 'nvidia', cls: 'sp-nvidia', name: 'NVIDIA', tier: 'Tech Sponsor',
+          logo: 'NV', logoBg: '#76B900', logoColor: '#000',
+          desc: 'NVIDIA sponsors DevSphere\'s entire hackathon infrastructure and compute resources. Hackathon teams get access to NVIDIA GPU cloud credits, CUDA workshops, and direct mentorship from NVIDIA engineers.',
+          tags: ['⚡ GPU Cloud Credits', '🧠 AI / ML Infrastructure', '🏆 Hackathon Hardware'],
+          dot: '#15803D'
+        },
+        {
+          id: 'aws', cls: 'sp-aws', name: 'Amazon AWS', tier: 'Cloud Sponsor',
+          logo: 'AWS', logoBg: 'linear-gradient(135deg,#FF9900,#E87110)', logoColor: '#fff',
+          desc: 'Amazon Web Services provides cloud credits, infrastructure workshops, and judging expertise for DevSphere. AWS experts run the Cloud Engineering track and provide mentorship during the hackathon build phase.',
+          tags: ['☁️ Cloud Credits', '🛠 Cloud Engineering Track', '🏅 Hackathon Judging'],
+          dot: '#E87110'
+        },
+      ];
+
+      var track = document.getElementById('sp-track');
+      var carouselOuter = document.querySelector('.sp-carousel-outer');
+      var dotRow = document.getElementById('sp-dot-row');
+      var infoName = document.getElementById('sp-info-name');
+      var infoDesc = document.getElementById('sp-info-desc');
+      var infoTags = document.getElementById('sp-info-tags');
+      var body = document.body;
+      var allCls = SPONSORS.map(function (s) { return s.cls });
+
+      /* Rectangular card dimensions */
+      var CARD_W = 240, GAP = 28, SPEED = 1.3; /* px per frame — slightly faster */
+      var totalCards = SPONSORS.length;
+      var offset = 0;
+      var raf = null;
+      var activeIdx = -1;
+      var isInView = false;
+      var isPaused = false; /* hover-pause state */
+
+      /* Build cards × 4 for seamless loop with enough width */
+      [0, 1, 2, 3].forEach(function (set) {
+        SPONSORS.forEach(function (sp, i) {
+          var card = document.createElement('div');
+          card.className = 'sp-logo-card';
+          card.dataset.idx = i;
+          /* Rectangular: logo on left, text on right */
+          card.innerHTML =
+            '<div class="sp-logo-inner" style="background:' + sp.logoBg + ';color:' + sp.logoColor + ';font-family:var(--fh);font-size:1.25rem;letter-spacing:.04em;font-weight:900">' + sp.logo + '</div>'
+            + '<div class="sp-logo-text">'
+            + '<div class="sp-logo-name">' + sp.name + '</div>'
+            + '<div class="sp-logo-tier">' + sp.tier + '</div>'
+            + '</div>';
+          /* Hover: if this card is the active (centre) one, pause */
+          card.addEventListener('mouseenter', function () {
+            if (+card.dataset.idx === activeIdx) isPaused = true;
+          });
+          card.addEventListener('mouseleave', function () {
+            isPaused = false;
+          });
+          track.appendChild(card);
+        });
+      });
+
+      /* Dot indicators */
+      SPONSORS.forEach(function (sp, i) {
+        var d = document.createElement('div');
+        d.className = 'sp-cdot';
+        d.onclick = function () {
+          /* Jump offset so this card lands in the centre */
+          var cx = window.innerWidth / 2;
+          offset = i * (CARD_W + GAP) - (cx - CARD_W / 2);
+          if (offset < 0) offset += loopW;
+        };
+        dotRow.appendChild(d);
+      });
+      var dots = dotRow.querySelectorAll('.sp-cdot');
+
+      function setActive(idx) {
+        if (idx === activeIdx) return;
+        activeIdx = idx;
+        var sp = SPONSORS[idx];
+        allCls.forEach(function (c) { body.classList.remove(c) });
+        body.classList.add(sp.cls);
+        infoName.textContent = sp.name;
+        infoDesc.textContent = sp.desc;
+        infoTags.innerHTML = '';
+        sp.tags.forEach(function (t) {
+          var s = document.createElement('span');
+          s.className = 'sp-tag'; s.textContent = t; infoTags.appendChild(s);
+        });
+        dots.forEach(function (d, i) { d.classList.toggle('on', i === idx) });
+        track.querySelectorAll('.sp-logo-card').forEach(function (c) {
+          c.classList.toggle('active', +c.dataset.idx === idx);
+        });
+      }
+
+      function resetTheme() {
+        allCls.forEach(function (c) { body.classList.remove(c) });
+        activeIdx = -1; isPaused = false;
+        dots.forEach(function (d) { d.classList.remove('on') });
+        track.querySelectorAll('.sp-logo-card').forEach(function (c) { c.classList.remove('active') });
+        infoName.textContent = ''; infoDesc.textContent = ''; infoTags.innerHTML = '';
+      }
+
+      var loopW = totalCards * (CARD_W + GAP);
+
+      /* Centre the track start so first card is already in view */
+      var trackLeftPad = window.innerWidth / 2 - CARD_W / 2;
+
+      function tick() {
+        if (!isInView) { raf = null; return; }
+        if (!isPaused) {
+          offset += SPEED;
+          if (offset >= loopW) offset -= loopW;
+        }
+        track.style.transform = 'translateX(' + (trackLeftPad - offset) + 'px)';
+
+        /* Find which card centre is closest to viewport centre */
+        var cx = window.innerWidth / 2;
+        var best = -1, bestDist = Infinity;
+        for (var i = 0; i < totalCards; i++) {
+          var baseX = trackLeftPad + i * (CARD_W + GAP) - offset + CARD_W / 2;
+          /* Check all 4 copies */
+          for (var s = 0; s < 4; s++) {
+            var x = baseX + s * loopW;
+            var dist = Math.abs(x - cx);
+            if (dist < bestDist) { bestDist = dist; best = i; }
+          }
+        }
+        if (best >= 0) setActive(best);
+        raf = requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('resize', function () { trackLeftPad = window.innerWidth / 2 - CARD_W / 2 });
+
+      var section = document.getElementById('sponsors');
+      var sectionObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          isInView = e.isIntersecting;
+          if (isInView && !raf) { raf = requestAnimationFrame(tick); }
+          if (!isInView) { resetTheme(); }
+        });
+      }, { threshold: .05 });
+      sectionObs.observe(section);
+    })();
+
+    /* ── TICKETS ── */
+    var selectedDays = new Set();
+    function toggleDay(el, day) {
+      if (selectedDays.has(day)) { selectedDays.delete(day); el.classList.remove('sel') }
+      else { selectedDays.add(day); el.classList.add('sel') }
+      updatePriceBar();
+    }
+    function updatePriceBar() {
+      var n = selectedDays.size;
+      var total = n * 500;
+      var detail = document.getElementById('pb-detail');
+      var amount = document.getElementById('pb-amount');
+      var btn = document.getElementById('btn-book-days');
+      amount.textContent = '₹' + total.toLocaleString('en-IN');
+      detail.textContent = n === 0 ? 'Select days above to begin' : n + ' day' + (n > 1 ? 's' : '') + ' selected · ₹500 per day';
+      if (n > 0) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; btn.textContent = 'Book ' + n + ' Day' + (n > 1 ? 's' : '') + ' →' }
+      else { btn.style.opacity = '.5'; btn.style.pointerEvents = 'none'; btn.textContent = 'Select at least one day →' }
+    }
+    /* ── BOOKING HELPERS ── */
+
+    /**
+     * bookDays() — called when user clicks "Book N Days →"
+     *
+     * How it works:
+     *   1. Reads the selectedDays Set (e.g. {1, 3, 5})
+     *   2. Calculates total amount (₹500 × number of days)
+     *   3. Encodes everything as URL query-params and navigates to checkout.html
+     *
+     * checkout.html reads these params on load to pre-fill the order summary
+     * and pass the correct amount to Razorpay.
+     *
+     * URL format:  checkout.html?days=1,3,5&amount=1500&type=pick
+     */
+    function bookDays() {
+      if (selectedDays.size === 0) return;
+      var days = Array.from(selectedDays).sort().join(',');  // e.g. "1,3,5"
+      var amount = selectedDays.size * 500;                  // ₹500 per day
+      var params = new URLSearchParams({
+        days: days,
+        amount: amount,
+        type: 'pick'
+      });
+      window.location.href = '/checkout?' + params.toString();
+    }
+    function setTicketMode(mode) {
+      document.getElementById('mode-pick').classList.toggle('active', mode === 'pick');
+      document.getElementById('mode-week').classList.toggle('active', mode === 'week');
+      document.getElementById('btn-pick').classList.toggle('on', mode === 'pick');
+      document.getElementById('btn-week').classList.toggle('on', mode === 'week');
+    }
+
+    /* ── Contact form ── */
+    function handleSubmit(e) {
+      e.preventDefault();
+      var btn = document.getElementById('fbtn');
+      btn.textContent = 'Sending…'; btn.disabled = true;
+      setTimeout(function () {
+        btn.textContent = '✓ Sent! We\'ll be in touch.'; btn.style.background = '#15803D';
+        setTimeout(function () { btn.textContent = 'Send Message →'; btn.disabled = false; btn.style.background = '' }, 3500);
+      }, 1100);
+    }
+  </script>
+</body>
+
+</html>

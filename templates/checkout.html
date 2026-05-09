@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Checkout — DevSphere 2025</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&amp;family=DM+Mono:wght@400;500&amp;family=Nunito:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <!--
+  Razorpay's checkout SDK — gives us window.Razorpay
+  This is the ONLY thing Razorpay requires in the frontend.
+  All sensitive work (creating orders, verifying payments) happens
+  in server.js using your secret key.
+-->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <link href="{{url_for('static', filename = 'checkout.css')}}" rel="stylesheet" />
+</head>
+
+<body>
+  <nav>
+    <div class="nav-logo">
+      <span class="na">Dev</span><span class="nb">Sph</span><span class="nc">ere</span><span class="nd">.</span>
+    </div>
+    <a class="nav-back" href="/">← Back to Event</a>
+  </nav>
+  <div class="page">
+    <div class="sl">Secure Checkout</div>
+    <div class="stitle">Complete Your<br />Registration</div>
+    <p style="font-family:var(--fb);color:var(--muted);font-size:.9rem;margin:.4rem 0 2rem">
+      DevSphere 2025 · Pune, July 26–30 · PVPIT Campus
+    </p>
+    <div class="checkout-grid">
+      <!-- ── LEFT: Attendee Details Form ── -->
+      <div class="checkout-form-wrap">
+        <h2>Your Details</h2>
+        <p class="sub">We'll send your confirmation &amp; e-ticket here.</p>
+        <div class="form-section-label">Attendee Info</div>
+        <div class="field">
+          <label for="f-name">Full Name</label>
+          <input autocomplete="name" id="f-name" placeholder="e.g. Arjun Mehta" required="" type="text" />
+        </div>
+        <div class="field">
+          <label for="f-email">Email Address</label>
+          <input autocomplete="email" id="f-email" placeholder="you@example.com" required="" type="email" />
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone Number</label>
+          <input autocomplete="tel" id="f-phone" placeholder="+91 98765 43210" required="" type="tel" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="f-college">College / Organisation</label>
+            <input id="f-college" placeholder="e.g. PVPIT" type="text" />
+          </div>
+          <div class="field">
+            <label for="f-year">Year of Study</label>
+            <select id="f-year">
+              <option value="">Select…</option>
+              <option>1st Year</option>
+              <option>2nd Year</option>
+              <option>3rd Year</option>
+              <option>4th Year</option>
+              <option>Working Professional</option>
+            </select>
+          </div>
+        </div>
+        <button class="pay-btn" disabled="" id="pay-btn" onclick="startPayment()">
+          <span>Pay</span>
+          <span class="amt-inline" id="btn-amt-label">…</span>
+          <span>via Razorpay</span>
+        </button>
+        <!-- Shown if the server returns an error -->
+        <div class="error-msg" id="error-msg"></div>
+        <div class="rzp-note">
+          Powered by Razorpay · UPI · Cards · Net Banking · Wallets
+        </div>
+      </div>
+      <!-- ── RIGHT: Order Summary ── -->
+      <div class="order-card">
+        <h3>Order Summary</h3>
+        <div class="order-event-name">DevSphere 2025</div>
+        <div class="order-event-sub">Pune · July 26–30 · PVPIT Campus</div>
+        <div class="order-days" id="order-days"></div>
+        <div id="price-rows"></div>
+        <div class="secure-note">Payments are 256-bit SSL encrypted</div>
+      </div>
+    </div>
+    <!-- Shown after successful payment + server verification -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">🎉</div>
+      <h2>You're In!</h2>
+      <p>Payment successful. Your e-ticket for <strong>DevSphere 2025</strong> has been sent to your email.</p>
+      <p style="font-size:.82rem">Bring a valid ID to the venue. See you in Pune!</p>
+      <div class="success-txn" id="success-txn"></div>
+      <br />
+      <a class="success-home-btn" href="/">← Back to DevSphere</a>
+    </div>
+  </div>
+  <footer>
+    <span>© 2025 DevSphere · PVPIT, Pune</span>
+    <span>Non-refundable · Student ID required at entry</span>
+  </footer>
+  <script>
+    // ─────────────────────────────────────────────────────────────────────────────
+    //  HOW THIS PAGE COMMUNICATES WITH THE BACKEND
+    //
+    //  The flow has 3 steps:
+    //
+    //  STEP 1 — User fills the form and clicks Pay
+    //           → We call POST /api/create-order on our server
+    //           → Server talks to Razorpay using the secret key
+    //           → Server returns { order_id, amount, key_id }
+    //
+    //  STEP 2 — We open the Razorpay modal using that order_id
+    //           → User pays with UPI / Card / Net Banking etc.
+    //           → Razorpay closes the modal and calls our handler with:
+    //               { razorpay_payment_id, razorpay_order_id, razorpay_signature }
+    //
+    //  STEP 3 — We call POST /api/verify-payment on our server
+    //           → Server verifies the HMAC signature
+    //           → Server marks the booking as paid in the database
+    //           → Server returns { success: true }
+    //           → We show the success screen
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    // ── Day metadata ─────────────────────────────────────────────
+    var DAY_INFO = {
+      1: { date: 'Jul 26', theme: 'Ignition' },
+      2: { date: 'Jul 27', theme: 'Community' },
+      3: { date: 'Jul 28', theme: 'Build Mode' },
+      4: { date: 'Jul 29', theme: 'Scale Up' },
+      5: { date: 'Jul 30', theme: 'Finale' }
+    };
+
+    // ── Read URL params passed from index.html ───────────────────
+    var params = new URLSearchParams(window.location.search);
+    var daysRaw = params.get('days') || '';
+    var amount = parseInt(params.get('amount') || '0', 10);
+    var type = params.get('type') || 'pick';
+    var days = daysRaw.split(',').map(Number).filter(function (d) { return d >= 1 && d <= 5; });
+
+    // ── Build Order Summary UI ────────────────────────────────────
+    (function buildSummary() {
+      var daysContainer = document.getElementById('order-days');
+      var priceRows = document.getElementById('price-rows');
+
+      if (!days.length || !amount) {
+        daysContainer.innerHTML = '<p style="font-size:.85rem;color:var(--muted)">No days selected. <a href="/" style="color:var(--accent)">Go back →</a></p>';
+        return;
+      }
+
+      days.forEach(function (d) {
+        var info = DAY_INFO[d]; if (!info) return;
+        var badge = document.createElement('span');
+        badge.className = 'day-badge' + (type === 'week' ? ' week' : '');
+        badge.textContent = info.date + ' · ' + info.theme;
+        daysContainer.appendChild(badge);
+      });
+
+      var rowsHTML = '';
+      if (type === 'week') {
+        rowsHTML +=
+          '<div class="price-row"><span>5-Day Pass (₹500 × 5)</span><span>₹2,500</span></div>'
+          + '<div class="price-row"><span>All-Week Discount</span><span style="color:var(--accent2)">− ₹500</span></div>';
+      } else {
+        days.forEach(function (d) {
+          var info = DAY_INFO[d];
+          rowsHTML += '<div class="price-row"><span>Day ' + d + ' — ' + info.theme + '</span><span>₹500</span></div>';
+        });
+      }
+      rowsHTML +=
+        '<div class="price-row total">'
+        + '<span>Total' + (type === 'week' ? '<span class="savings-badge">You save ₹500</span>' : '') + '</span>'
+        + '<span class="amt">₹' + amount.toLocaleString('en-IN') + '</span>'
+        + '</div>';
+      priceRows.innerHTML = rowsHTML;
+
+      document.getElementById('btn-amt-label').textContent = '₹' + amount.toLocaleString('en-IN');
+    })();
+
+    // ── Enable Pay button only when required fields are filled ────
+    ['f-name', 'f-email', 'f-phone'].forEach(function (id) {
+      document.getElementById(id).addEventListener('input', function () {
+        var allFilled = ['f-name', 'f-email', 'f-phone'].every(function (fid) {
+          return document.getElementById(fid).value.trim() !== '';
+        });
+        document.getElementById('pay-btn').disabled = !allFilled;
+      });
+    });
+
+    // ── Utility: show/hide error message ─────────────────────────
+    function showError(msg) {
+      var el = document.getElementById('error-msg');
+      el.textContent = msg;
+      el.classList.add('show');
+    }
+    function hideError() {
+      document.getElementById('error-msg').classList.remove('show');
+    }
+
+    // ── Utility: set button loading state ────────────────────────
+    function setLoading(isLoading) {
+      var btn = document.getElementById('pay-btn');
+      btn.disabled = isLoading;
+      btn.querySelector('span').textContent = isLoading ? 'Please wait…' : 'Pay';
+    }
+
+
+    // =============================================================
+    //  STEP 1 — startPayment()
+    //
+    //  Called when user clicks the Pay button.
+    //  Sends form data to our server → gets back order_id → opens modal.
+    // =============================================================
+    async function startPayment() {
+      hideError();
+      setLoading(true);
+
+      var name = document.getElementById('f-name').value.trim();
+      var email = document.getElementById('f-email').value.trim();
+      var phone = document.getElementById('f-phone').value.trim();
+      var college = document.getElementById('f-college').value.trim();
+      var year = document.getElementById('f-year').value.trim();
+
+      try {
+        // ── Call our backend to create a Razorpay order ───────────
+        //    The server uses the secret key here — the browser never sees it.
+        var response = await fetch('/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount,          // INR integer
+            days,            // [1, 3, 5]
+            ticket_type: type,
+            name, email, phone, college, year
+          })
+        });
+
+        var data = await response.json();
+
+        if (!response.ok) {
+          // Server returned an error (e.g. invalid amount)
+          throw new Error(data.error || 'Could not create order');
+        }
+
+        // data now contains:  { order_id, amount (paise), currency, key_id }
+        setLoading(false);
+        openRazorpayModal(data, { name, email, phone });
+
+      } catch (err) {
+        setLoading(false);
+        showError('Error: ' + err.message + '. Please try again.');
+        console.error('create-order failed:', err);
+      }
+    }
+
+
+    // =============================================================
+    //  STEP 2 — openRazorpayModal()
+    //
+    //  Uses the order_id from the server to open the Razorpay
+    //  payment modal. The modal handles all payment methods
+    //  (UPI, Cards, Net Banking, Wallets) automatically.
+    // =============================================================
+    function openRazorpayModal(orderData, attendee) {
+      var options = {
+        key: orderData.key_id,        // your public key from server
+        amount: orderData.amount,        // paise, already multiplied by server
+        currency: orderData.currency,
+        order_id: orderData.order_id,      // ← this is what links payment to our DB record
+
+        name: 'DevSphere 2025',
+        description: type === 'week'
+          ? 'All-Week Pass (July 26–30)'
+          : 'Day Pass (' + days.map(function (d) { return DAY_INFO[d].date; }).join(', ') + ')',
+
+        prefill: {
+          name: attendee.name,
+          email: attendee.email,
+          contact: attendee.phone.replace(/\D/g, '')
+        },
+        notes: {
+          days: days.join(','),
+          ticket_type: type,
+          event: 'DevSphere 2025'
+        },
+        theme: { color: '#B5341A' },
+        method: {
+          upi: true,
+          card: true,
+          netbanking: true,
+          wallet: true
+        },
+
+        // ── Called by Razorpay when payment succeeds ──────────────
+        handler: function (response) {
+          // response = { razorpay_payment_id, razorpay_order_id, razorpay_signature }
+          verifyPayment(response);
+        },
+
+        modal: {
+          ondismiss: function () {
+            // User closed the modal without paying — re-enable the button
+            document.getElementById('pay-btn').disabled = false;
+          }
+        }
+      };
+
+      var rzp = new Razorpay(options);
+      rzp.on('payment.failed', function (response) {
+        showError('Payment failed: ' + response.error.description);
+        document.getElementById('pay-btn').disabled = false;
+        console.error('Razorpay payment.failed:', response.error);
+      });
+      rzp.open();
+    }
+
+
+    // =============================================================
+    //  STEP 3 — verifyPayment()
+    //
+    //  After Razorpay calls our handler with the three IDs,
+    //  we send them to our backend for signature verification.
+    //  Only after this do we show the success screen.
+    //
+    //  This is the critical security step —
+    //  the server re-creates the expected signature and compares it.
+    // =============================================================
+    async function verifyPayment(razorpayResponse) {
+      setLoading(true);
+
+      try {
+        var response = await fetch('/api/verify-payment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            razorpay_order_id: razorpayResponse.razorpay_order_id,
+            razorpay_payment_id: razorpayResponse.razorpay_payment_id,
+            razorpay_signature: razorpayResponse.razorpay_signature
+          })
+        });
+
+        var data = await response.json();
+
+        setLoading(false);
+
+        if (data.success) {
+          showSuccess(razorpayResponse.razorpay_payment_id, data.ticket_token);
+        } else {
+          showError('Payment could not be verified. Please contact hello@devsphere2025.in');
+        }
+
+      } catch (err) {
+        setLoading(false);
+        showError('Verification error. Your payment may have gone through — please contact support.');
+        console.error('verify-payment failed:', err);
+      }
+    }
+
+
+    // ── Show success screen ───────────────────────────────────────
+    function showSuccess(paymentId, ticketToken) {
+      document.querySelector('.checkout-grid').style.display = 'none';
+      var screen = document.getElementById('success-screen');
+      screen.classList.add('show');
+      document.getElementById('success-txn').innerHTML =
+        'Payment ID: ' + paymentId +
+        (ticketToken ? '<br/>Ticket: <strong>' + ticketToken + '</strong>' : '');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+
+</html>

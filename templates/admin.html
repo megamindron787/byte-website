@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Admin — DevSphere 2025</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}" />
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-logo">DevSphere<span>.</span> 2025</div>
+        <span class="nav-tag">Admin Dashboard</span>
+    </nav>
+
+    <div class="page">
+
+        <div class="page-header">
+            <div class="sl">★ Internal Use Only</div>
+            <h1>Bookings Overview</h1>
+        </div>
+
+        <!-- ── Stat cards ────────────────────────────────────────────────── -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="label">Total Registrations</div>
+                <div class="value">{{ stats.total }}</div>
+                <div class="sub">all time</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Confirmed (Paid)</div>
+                <div class="value green">{{ stats.paid }}</div>
+                <div class="sub">payment verified</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Pending Payment</div>
+                <div class="value red">{{ stats.unpaid }}</div>
+                <div class="sub">not yet paid</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Total Revenue</div>
+                <div class="value amber">₹{{ "{:,}".format(stats.revenue) }}</div>
+                <div class="sub">from paid bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">All-Week Passes</div>
+                <div class="value">{{ stats.week_pass }}</div>
+                <div class="sub">₹2,000 each</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Day Passes</div>
+                <div class="value">{{ stats.day_pass }}</div>
+                <div class="sub">₹500 per day</div>
+            </div>
+        </div>
+
+        <!-- ── Per-day attendance ─────────────────────────────────────────── -->
+        {% set day_info = [
+        (1, 'Ignition', 'Jul 26'),
+        (2, 'Community', 'Jul 27'),
+        (3, 'Build Mode', 'Jul 28'),
+        (4, 'Scale Up', 'Jul 29'),
+        (5, 'Finale', 'Jul 30')
+        ] %}
+        {% set max_day = [stats.day_counts.values() | list | max, 1] | max %}
+
+        <div class="section-title">Expected Attendance Per Day</div>
+        <div class="days-grid">
+            {% for num, name, date in day_info %}
+            {% set count = stats.day_counts[num] %}
+            <div class="day-card">
+                <div class="day-name">Day {{ num }} · {{ name }}</div>
+                <div class="day-date">{{ date }}, 2025</div>
+                <div class="day-count">{{ count }}</div>
+                <div class="day-label">attendees</div>
+                <div class="bar-wrap">
+                    <div class="bar" style="width:{{ ((count / max_day) * 100) | int }}%"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- ── Bookings table ─────────────────────────────────────────────── -->
+        <div class="table-wrap">
+            <div class="table-header">
+                <h3>All Bookings</h3>
+                <div class="table-controls">
+                    <input class="search-box" id="search" placeholder="Search name, email, token…"
+                        oninput="filterTable()" />
+                    <button class="export-btn" onclick="exportCSV()">↓ Export CSV</button>
+                </div>
+            </div>
+            <div class="pending-note">⚠ Dimmed rows have pending payment — not counted in attendance or revenue</div>
+
+            <div class="table-scroll">
+                <table id="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>College</th>
+                            <th>Year</th>
+                            <th>Pass</th>
+                            <th>Days</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Ticket Token</th>
+                            <th>Registered</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        {% for b in bookings %}
+                        <tr class="{% if not b.paid %}pending-row{% endif %}">
+                            <td class="id-cell">{{ b.id }}</td>
+                            <td><strong>{{ b.name }}</strong></td>
+                            <td class="small-cell">{{ b.email }}</td>
+                            <td class="mono-cell">{{ b.phone }}</td>
+                            <td class="small-cell">{{ b.college or '—' }}</td>
+                            <td class="mono-cell">{{ b.year_of_study or '—' }}</td>
+                            <td><span class="badge {{ b.ticket_type }}">{{ b.ticket_type }}</span></td>
+                            <td class="days-cell">{{ b.days }}</td>
+                            <td class="amount-cell">₹{{ "{:,}".format(b.amount) }}</td>
+                            <td>
+                                {% if b.paid %}
+                                <span class="badge paid">✓ Paid</span>
+                                {% else %}
+                                <span class="badge unpaid">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td class="token-cell">{{ b.ticket_token }}</td>
+                            <td class="date-cell">{{ b.created_at[:16] if b.created_at else '—' }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="12" class="no-results">No bookings yet</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function filterTable() {
+            var q = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('#table-body tr').forEach(function (row) {
+                row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        }
+
+        function exportCSV() {
+            var headers = ['ID', 'Name', 'Email', 'Phone', 'College', 'Year', 'Pass', 'Days', 'Amount', 'Status', 'Token', 'Registered'];
+            var rows = [headers];
+            document.querySelectorAll('#table-body tr').forEach(function (row) {
+                if (row.style.display === 'none') return;
+                var cells = row.querySelectorAll('td');
+                if (cells.length < 12) return;
+                rows.push(Array.from(cells).map(function (td) {
+                    return '"' + td.textContent.trim().replace(/"/g, '""') + '"';
+                }));
+            });
+            var csv = rows.map(function (r) { return r.join(','); }).join('\n');
+            var blob = new Blob([csv], { type: 'text/csv' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'devsphere_bookings.csv';
+            a.click();
+        }
+    </script>
+
+</body>
+
+</html>
